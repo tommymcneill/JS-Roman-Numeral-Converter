@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roman Numeral Converter</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font for Modern Look (Roboto) -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: black; /* Set background to black */
+      color: orange; /* Set text color to orange */
+      font-family: 'Roboto', sans-serif; /* Modern and clean font */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      max-width: 600px;
+      margin-top: 50px;
+    }
+    #output {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 20px;
+      color: orange; /* Ensure output text is orange */
+    }
+    #roman-image {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 400px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    h1 {
+      color: orange; /* Ensure header text is orange */
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+    }
+    .btn {
+      background-color: orange; /* Button background orange */
+      color: black; /* Button text black for contrast */
+      font-weight: bold;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background-color: #ff6600; /* Darker orange on hover */
+    }
+    .form-label {
+      font-weight: bold;
+      color: orange; /* Label text is orange */
+    }
+
+    /* Center the number input */
+    #number {
+      text-align: center; /* Center the number text */
+      font-size: 1.5rem;
+      color: orange; /* Input text is orange */
+      background-color: black; /* Input field background black */
+      border: 2px solid orange; /* Orange border for input */
+    }
+
+    /* Responsive design adjustments */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem; /* Slightly smaller font size on smaller screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Roman Numeral Converter</h1>
+
+    <p class="lead">Easily convert numbers into Roman numerals with our user-friendly tool.</p>
+    
+    <div class="mb-3">
+      <label for="number" class="form-label">Enter a number between 1 and 3999:</label>
+      <input type="number" class="form-control" id="number" placeholder="Enter a number">
+    </div>
+    <button id="convert-btn" class="btn btn-primary w-100">Convert</button>
+
+    <div id="output" class="mt-4"></div>
+
+    <img id="roman-image" src="https://imgcdn.stablediffusionweb.com/2024/5/13/97f0ce42-f78b-4930-ba1b-5d0d5137bbc5.jpg" alt="Roman Numerals Chart">
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript for Roman Numeral Converter -->
+  <script>
+    // Roman Numeral conversion function
+    function convertToRoman(num) {
+      const romanNumerals = [
+        { value: 1000, symbol: "M" },
+        { value: 900, symbol: "CM" },
+        { value: 500, symbol: "D" },
+        { value: 400, symbol: "CD" },
+        { value: 100, symbol: "C" },
+        { value: 90, symbol: "XC" },
+        { value: 50, symbol: "L" },
+        { value: 40, symbol: "XL" },
+        { value: 10, symbol: "X" },
+        { value: 9, symbol: "IX" },
+        { value: 5, symbol: "V" },
+        { value: 4, symbol: "IV" },
+        { value: 1, symbol: "I" },
+      ];
+
+      let result = '';
+      for (let i = 0; i < romanNumerals.length; i++) {
+        while (num >= romanNumerals[i].value) {
+          result += romanNumerals[i].symbol;
+          num -= romanNumerals[i].value;
+        }
+      }
+      return result;
+    }
+
+    // Event listener for the convert button
+    document.getElementById('convert-btn').addEventListener('click', function() {
+      const num = parseInt(document.getElementById('number').value);
+
+      if (!num) {
+        document.getElementById('output').textContent = "Please enter a valid number.";
+        return;
+      }
+      if (num < 1) {
+        document.getElementById('output').textContent = "Please enter a number greater than or equal to 1.";
+        return;
+      }
+      if (num >= 4000) {
+        document.getElementById('output').textContent = "Please enter a number less than or equal to 3999.";
+        return;
+      }
+
+      const roman = convertToRoman(num);
+      document.getElementById('output').textContent = "Roman Numeral: " + roman;
+    });
+  </script>
+
+</body>
+</html>
